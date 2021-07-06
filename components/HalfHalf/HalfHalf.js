@@ -19,6 +19,9 @@ const StyledCol = styled(Col)`
 `;
 const StyledRow = styled(Row)`
 	padding-top: 160px;
+	${(props) => props.scrollh && `width: 100vw;`}
+	${(props) => props.scrollh && `padding-left: 128px;`}
+	${(props) => props.scrollh && `padding-right: 128px;`}
 	@media ${mediaBreakpoint.down.lg} {
 		padding-top: 48px;
 	}
@@ -26,29 +29,34 @@ const StyledRow = styled(Row)`
 const OuterContainer = styled.div`
 	display: flex;
 	padding-bottom: 160px;
+	${(props) => props.scrollh && `min-width: 100vw;`}
 
 	@media ${mediaBreakpoint.down.lg} {
 		padding-bottom: 48px;
 	}
 `;
-export default function HalfHalf({ left, right, light, bottom }) {
+export default function HalfHalf({ left, right, light, bottom, scrollHoriz }) {
+	const content = (
+		<StyledRow scrollh={scrollHoriz}>
+			<StyledCol lg={6} md={12}>
+				{left}
+			</StyledCol>
+			<StyledCol lg={6} md={12}>
+				{right}
+			</StyledCol>
+			{bottom && (
+				<StyledCol className="special align-items-center" lg={12}>
+					{bottom}
+				</StyledCol>
+			)}
+		</StyledRow>
+	);
 	return (
-		<OuterContainer className={`${light ? `bg-white` : `bg-primary1`}`}>
-			<Container>
-				<StyledRow>
-					<StyledCol lg={6} md={12}>
-						{left}
-					</StyledCol>
-					<StyledCol lg={6} md={12}>
-						{right}
-					</StyledCol>
-					{bottom && (
-						<StyledCol className="special align-items-center" lg={12}>
-							{bottom}
-						</StyledCol>
-					)}
-				</StyledRow>
-			</Container>
+		<OuterContainer
+			scrollh={scrollHoriz}
+			className={`${light ? `bg-white` : `bg-primary1`}`}
+		>
+			{scrollHoriz ? content : <Container>{content}</Container>}
 		</OuterContainer>
 	);
 }

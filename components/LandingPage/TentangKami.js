@@ -32,7 +32,7 @@ const StyledImg = styled(Image)`
 	}
 `;
 
-export default function TentangKami() {
+export default function TentangKami({ scrollHoriz }) {
 	const left = (
 		<>
 			<StyledHeadingXXL as="h2">tumbuh</StyledHeadingXXL>
@@ -48,15 +48,15 @@ export default function TentangKami() {
 
 	const right = (
 		<>
-			<TextPrimary className="text-white">
+			<TextPrimary className={`text-white ${scrollHoriz && `ws`}`}>
 				UNBELIEVABLE merupakan sebuah komunitas yang ingin bersama meningkatkan
 				kualitas hidup setiap individu di dunia dengan cara yang paling efektif
 			</TextPrimary>
-			<TextPrimary className="mt-4 text-white">
+			<TextPrimary className={`text-white mt-4 ${scrollHoriz && `ws`}`}>
 				Belajarlah bersama karakter spesial Unbelievable agar belajar lebih
 				menyenangkan dan efektif!
 			</TextPrimary>
-			<TextPrimary className="mt-4 text-white">
+			<TextPrimary className={`text-white mt-4 ${scrollHoriz && `ws`}`}>
 				Setiap hari kamu akan merasakan perubahannya, bayangkan perubahan yang
 				terjadi dalam waktu 1 tahun!
 			</TextPrimary>
@@ -64,7 +64,7 @@ export default function TentangKami() {
 	);
 	return (
 		<div id="about">
-			<HalfHalf left={left} right={right} />
+			<HalfHalf scrollHoriz={scrollHoriz} left={left} right={right} />
 		</div>
 	);
 }

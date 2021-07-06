@@ -11,7 +11,7 @@ import {
 import { mediaBreakpoint } from "utils/breakpoints";
 
 const StyledTextSecondary = styled(TextSecondary)`
-	max-width: 260px;
+	${(props) => !props.scrollh && `260px;`}
 	text-align: justify;
 	@media ${mediaBreakpoint.down.lg} {
 		max-width: 100%;
@@ -46,7 +46,7 @@ const StyledHeadingSM = styled(HeadingSM)`
 		font-size: 40px;
 	}
 `;
-export default function CaraKerja() {
+export default function CaraKerja({ scrollHoriz }) {
 	const caraKerja = [
 		{
 			title: "Berubah setiap hari dengan Kelas Khusus UNBELIEVABLE",
@@ -75,19 +75,31 @@ export default function CaraKerja() {
 			<div className="d-flex flex-column">
 				{caraKerja.map((item, ix) => (
 					<div key={ix} className="mb-lg-3 mb-5 d-flex align-items-center">
-						<StyledHeadingXXL nth={ix} className="text-lightblue" as="p">
+						<StyledHeadingXXL
+							nth={ix}
+							className={`text-lightblue  ${scrollHoriz && `ws`}`}
+							as="p"
+						>
 							{ix + 1}
 						</StyledHeadingXXL>
 						<div className=" d-flex flex-column">
-							<StyledHeadingXS as="h3" className="mb-1">
+							<StyledHeadingXS
+								as="h3"
+								className={`mb-1  ${scrollHoriz && `ws`}`}
+							>
 								{item.title}
 							</StyledHeadingXS>
-							<StyledTextSecondary>{item.body}</StyledTextSecondary>
+							<StyledTextSecondary
+								scrollh={scrollHoriz}
+								className={` ${scrollHoriz && `ws`}`}
+							>
+								{item.body}
+							</StyledTextSecondary>
 						</div>
 					</div>
 				))}
 			</div>
 		</>
 	);
-	return <HalfHalf left={left} right={right} light />;
+	return <HalfHalf scrollHoriz={scrollHoriz} left={left} right={right} light />;
 }
