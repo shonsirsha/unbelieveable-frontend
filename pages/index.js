@@ -10,53 +10,59 @@ import { API_URL } from "config";
 
 export default function Home({ testimonials }) {
 	const realElRefWidth = useRef();
-	const [fakeWidth, _] = useState(250); // gonna be used as HEIGHT (yes, not width...)
+	const [fakeWidth, _] = useState(545); // gonna be used as HEIGHT (yes, not width...)
 	useEffect(() => {
 		if (typeof window !== undefined) {
-			// window.addEventListener("scroll", () => {
-			// 	document.querySelector("#wop").style.left = `-${
-			// 		document.body.scrollTop || document.documentElement.scrollTop
-			// 	}px`;
-			// });
+			window.addEventListener("scroll", () => {
+				if (document.querySelector("#wop")) {
+					document.querySelector("#wop").style.left = `-${
+						document.body.scrollTop || document.documentElement.scrollTop
+					}px`;
+				}
+			});
 		}
 	}, []);
 
-	// $(window).on("scroll", function () {
-	// 	$("#realcontent").css("left", -$(window).scrollTop());
-	// });
 	return (
-		<Layout landingPage withFB>
-			<Hero />
+		<>
+			<div className="d-none d-lg-block position-relative">
+				<Layout scrollHoriz landingPage withFB>
+					<div
+						ref={realElRefWidth}
+						style={{ whiteSpace: "nowrap" }}
+						id="wop"
+						className="d-flex position-fixed"
+					>
+						<Hero scrollHoriz />
 
-			<div className="d-none d-md-block">
-				<div
-					ref={realElRefWidth}
-					style={{ whiteSpace: "nowrap" }}
-					id="wop"
-					className="d-flex "
-				>
-					<TentangKami scrollHoriz />
+						<TentangKami scrollHoriz />
 
-					<CaraKerja scrollHoriz />
+						<CaraKerja scrollHoriz />
 
-					<TentangKami2 scrollHoriz />
-				</div>
-				{/* {testimonials && <Testimonial testimonials={testimonials} />} */}
+						<TentangKami2 scrollHoriz />
 
-				{/* <TentangKami2 />
+						{testimonials && (
+							<Testimonial scrollHoriz testimonials={testimonials} />
+						)}
 
-				{testimonials && <Testimonial testimonials={testimonials} />}
-				<MulaiSekarang /> */}
+						<MulaiSekarang scrollHoriz />
+					</div>
+					<div style={{ height: `${fakeWidth}vw` }}></div>
+				</Layout>
 			</div>
 
-			<div className="d-block d-md-none">
-				<TentangKami />
-				<CaraKerja />
-				<TentangKami2 />
-				{testimonials && <Testimonial testimonials={testimonials} />}
-				<MulaiSekarang />
+			<div className="d-block d-lg-none">
+				<Layout scrollHoriz landingPage withFB>
+					<Hero />
+
+					<TentangKami />
+					<CaraKerja />
+					<TentangKami2 />
+					{testimonials && <Testimonial testimonials={testimonials} />}
+					<MulaiSekarang />
+				</Layout>
 			</div>
-		</Layout>
+		</>
 	);
 }
 

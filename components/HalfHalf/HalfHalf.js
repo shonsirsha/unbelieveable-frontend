@@ -30,6 +30,7 @@ const OuterContainer = styled.div`
 	display: flex;
 	padding-bottom: 160px;
 	${(props) => props.scrollh && `min-width: 100vw;`}
+	${(props) => props.scrollh && `height: 100vh;`}
 
 	@media ${mediaBreakpoint.down.lg} {
 		padding-bottom: 48px;

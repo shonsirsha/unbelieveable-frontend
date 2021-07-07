@@ -20,7 +20,7 @@ const StyledTextPrimary = styled(TextPrimary)`
 `;
 const LeftContainer = styled.div`
 	padding-right: 80px;
-
+	${(props) => props.scrollh && `padding-top: 120px;`}
 	@media ${mediaBreakpoint.down.md} {
 		padding-right: 0;
 	}
@@ -28,22 +28,28 @@ const LeftContainer = styled.div`
 
 const RightContainer = styled.div`
 	padding-left: 80px;
+	${(props) => props.scrollh && `padding-top: 120px;`}
 	img {
+		${(props) => props.scrollh && `width: 460px;`}
 		height: 154.93px;
 	}
 	@media ${mediaBreakpoint.down.md} {
 		padding-left: 0;
+
+		img {
+			width: 100%;
+		}
 	}
 `;
 
-export default function MulaiSekarang() {
+export default function MulaiSekarang({ scrollHoriz }) {
 	const left = (
-		<LeftContainer>
-			<StyledHeadingSM>
+		<LeftContainer scrollh={scrollHoriz}>
+			<StyledHeadingSM className="ws">
 				Di sini kami percaya bahwa{" "}
 				<span className="bold">proses tidak akan mengkhianati hasil!</span>
 			</StyledHeadingSM>
-			<StyledTextPrimary className="mt-4">
+			<StyledTextPrimary className="mt-4 ws">
 				belajarlah sesuai dengan apa yang kamu minati dengan gaya belajar masa
 				depan rasakan hasilnya mulai <span className="bold"> HARI INI!</span>
 			</StyledTextPrimary>
@@ -51,8 +57,8 @@ export default function MulaiSekarang() {
 	);
 
 	const right = (
-		<RightContainer>
-			<div className="d-flex flex-column">
+		<RightContainer scrollh={scrollHoriz}>
+			<div className="d-flex flex-column align-items-center">
 				<Image src="/images/characters.png" />
 			</div>
 		</RightContainer>
@@ -62,6 +68,7 @@ export default function MulaiSekarang() {
 			left={left}
 			right={right}
 			light
+			scrollHoriz={scrollHoriz}
 			bottom={<YellowButton width={280}>Mulai Sekarang!</YellowButton>}
 		/>
 	);

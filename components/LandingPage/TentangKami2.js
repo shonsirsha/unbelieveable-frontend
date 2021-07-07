@@ -11,16 +11,19 @@ const StyledHeadingXXL = styled(HeadingXXL)`
 	}
 `;
 
-export default function TentangKami() {
+export default function TentangKami({ scrollHoriz }) {
 	const left = (
 		<>
-			<HeadingMD as="h2" className="mt-1 text-white">
+			<HeadingMD as="h2" className={`mt-1 text-white ${scrollHoriz && `ws`}`}>
 				dengan
 			</HeadingMD>
-			<StyledHeadingXXL as="h2" className="mt-2 text-blue">
+			<StyledHeadingXXL
+				as="h2"
+				className={`mt-1 text-blue ${scrollHoriz && `ws`}`}
+			>
 				TERBAIK
 			</StyledHeadingXXL>
-			<HeadingMD as="h2" className="mt-1 text-white">
+			<HeadingMD as="h2" className={`mt-1 text-white ${scrollHoriz && `ws`}`}>
 				di bidangnya
 			</HeadingMD>
 		</>
@@ -31,7 +34,11 @@ export default function TentangKami() {
 			<div className="mt-lg-0 mt-4 d-flex flex-lg-row flex-column">
 				<div className="d-flex flex-column align-items-center mr-lg-5 mr-0">
 					<Image src="/images/plcholder.png" width={160} roundedCircle />
-					<TextSecondary className="mt-lg-5 mt-2  text-white text-justify">
+					<TextSecondary
+						className={`mt-lg-5 mt-2  text-white text-justify ${
+							scrollHoriz && `ws`
+						}`}
+					>
 						Eric Christopher Simowibowo, mentor course How to be confident 21
 						days, berlatar pendidikan di universitas ternama dan pengalaman di
 						bidang graphology selama 12 tahun
@@ -39,7 +46,11 @@ export default function TentangKami() {
 				</div>
 				<div className="mt-lg-0 mt-5 d-flex flex-column align-items-center">
 					<Image src="/images/plcholder.png" width={160} roundedCircle />
-					<TextSecondary className="mt-lg-5 mt-2 text-white text-justify">
+					<TextSecondary
+						className={`mt-lg-5 mt-2  text-white text-justify ${
+							scrollHoriz && `ws`
+						}`}
+					>
 						William Christopher Simowibowo, Enteprenur muda yang berpengalaman
 						di bidang kebugaran dan kesehatan Telah disertifikasi di negara
 						Eropa dan sudah mengajar banyak siswa kurang lebih 5 tahun
@@ -48,5 +59,5 @@ export default function TentangKami() {
 			</div>
 		</>
 	);
-	return <HalfHalf left={left} right={right} />;
+	return <HalfHalf scrollHoriz={scrollHoriz} left={left} right={right} />;
 }

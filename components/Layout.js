@@ -50,6 +50,7 @@ export default function Layout({
 	withMargin = false,
 	scrollToSolid = false,
 	background = "transparent",
+	scrollHoriz = false,
 }) {
 	const { user, loading } = useContext(AuthContext);
 	// const router = useRouter();
@@ -73,18 +74,18 @@ export default function Layout({
 				<FlyingButtonsContainer>
 					<Link href="#hero">
 						<a>
-							<RoundedBtnIcon img={`images/home.png`} />
+							<RoundedBtnIcon className="shadow" img={`images/home.png`} />
 						</a>
 					</Link>
 					<Link href="/">
 						<a>
-							<RoundedBtnIcon img={`images/smiley.png`} />
+							<RoundedBtnIcon className="shadow" img={`images/smiley.png`} />
 						</a>
 					</Link>
 				</FlyingButtonsContainer>
 			)}
 			<div style={{ marginTop: withMargin ? `112px` : `0` }}>{children}</div>
-			<Footer />
+			<Footer scrollHoriz={scrollHoriz} />
 		</div>
 	);
 }

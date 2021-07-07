@@ -18,9 +18,9 @@ const StyledHeadingMD = styled(HeadingMD)`
 
 const OuterContainer = styled.div`
 	display: flex;
-	padding: 160px 0;
+	padding: 160px ${(props) => (props.scrollh ? `128px;` : `0;`)}
 	padding-bottom: 24px;
-
+	${(props) => props.scrollh && `width: 100vw;`}
 	@media ${mediaBreakpoint.down.lg} {
 		padding: 48px 0;
 	}
@@ -56,6 +56,10 @@ const StyledSlider = styled(Slider)`
 		justify-content: center;
 	}
 
+	.slick-dots {
+		${(props) => props.scrollh && `bottom: auto;`}
+	}
+
 	.slick-dots li button:before {
 		font-size: 12px;
 	}
@@ -75,18 +79,28 @@ const StyledSlider = styled(Slider)`
 
 	.slick-prev {
 		z-index: 88;
-		left: -64px;
+		${(props) =>
+			props.scrollh
+				? `left: -32px;
+					margin: 0;
+				`
+				: `left: -64px;`}
 	}
 
 	.slick-next {
-		right: -56px;
+		${(props) =>
+			props.scrollh
+				? `right: -48px;
+					margin: 0;
+				`
+				: `right: -56px;`}
 		z-index: 88;
 	}
 
 	.slick-arrow {
 		width: 48px;
 		height: 48px;
-		margin-top: 48px;
+		${(props) => !props.scrollh && `margin-top: 48px;`}
 	}
 
 	@media ${mediaBreakpoint.down.md} {
@@ -96,7 +110,7 @@ const StyledSlider = styled(Slider)`
 		}
 	}
 `;
-export default function Testimonial({ testimonials }) {
+export default function Testimonial({ testimonials, scrollHoriz }) {
 	const settings = {
 		dots: true,
 		infinite: true,
@@ -104,31 +118,32 @@ export default function Testimonial({ testimonials }) {
 		slidesToShow: 1,
 		slidesToScroll: 1,
 	};
-	return (
-		<OuterContainer>
-			<Container>
-				<Row>
-					<Col lg={12}>
-						<StyledHeadingMD className="text-center">
-							Testimoni Member yang sudah Join Batch 1
-						</StyledHeadingMD>
-					</Col>
+	const content = (
+		<Row className={`${scrollHoriz && `w-100`}`}>
+			<Col className="d-flex justify-content-center align-items-center" lg={12}>
+				<StyledHeadingMD className="text-center">
+					Testimoni Member yang sudah Join Batch 1
+				</StyledHeadingMD>
+			</Col>
 
-					<Col lg={12} className="d-flex justify-content-center mt-4">
-						<StyledSlider {...settings}>
-							{testimonials &&
-								testimonials.map((t, ix) => (
-									<TestimonialCard
-										key={ix}
-										nama={t.nama}
-										status={t.status}
-										testimonial={t.testimonial}
-									/>
-								))}
-						</StyledSlider>
-					</Col>
-				</Row>
-			</Container>
+			<Col lg={12} className={`d-flex justify-content-center mt-4`}>
+				<StyledSlider scrollh={scrollHoriz} {...settings}>
+					{testimonials &&
+						testimonials.map((t, ix) => (
+							<TestimonialCard
+								key={ix}
+								nama={t.nama}
+								status={t.status}
+								testimonial={t.testimonial}
+							/>
+						))}
+				</StyledSlider>
+			</Col>
+		</Row>
+	);
+	return (
+		<OuterContainer scrollh={scrollHoriz}>
+			{scrollHoriz ? <>{content}</> : <Container>{content}</Container>}
 		</OuterContainer>
 	);
 }
@@ -141,7 +156,7 @@ const TestimonialCard = ({ nama, status, testimonial }) => {
 				{nama}
 				{status && `, ${status}`}
 			</StyledHeadingXS>
-			<TextTertiary className="mt-3 text-center">{testimonial}</TextTertiary>
+			<TextTertiary className="mt-3 text-center ws">{testimonial}</TextTertiary>
 		</CardBody>
 	);
 };

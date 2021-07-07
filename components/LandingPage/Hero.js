@@ -14,9 +14,18 @@ const StyledContainer = styled(Container)`
 	height: 100%;
 `;
 
+const StyledContainer2 = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100vw;
+	height: 100%;
+`;
+
 const StyledHeading = styled(HeadingXL)`
 	font-family: MontserratRegular;
-	max-width: 800px;
+	${(props) => !props.scrollh && `max-width: 800px;`}
 	& > span {
 		font-family: MontserratBold;
 	}
@@ -46,39 +55,52 @@ const StyledRow = styled(Row)`
 `;
 const BlueBlob = styled(Image)`
 	position: absolute;
-	bottom: 18%;
-	right: 160px;
+	bottom: 30%;
+	left: 10%;
 	width: 340px;
 	height: 340px;
 `;
-export default function Hero() {
+export default function Hero({ scrollHoriz }) {
+	const content = (
+		<>
+			<StyledRow>
+				<Col className="align-items-center d-flex justify-content-center">
+					<StyledHeading
+						scrollh={scrollHoriz}
+						className="text-white text-center"
+					>
+						Belajarlah Setiap Hari Jadilah <span>UNBELIEVEABLE!</span>
+					</StyledHeading>
+				</Col>
+			</StyledRow>
+			<StyledRow className="mt-5">
+				<Col className="align-items-center d-flex justify-content-center">
+					<TextPrimary className="text-center text-white text-capitalize">
+						jadilah lebih baik setiap harinya bersama komunitas kami menuju
+						pribadi yang luar biasa!
+					</TextPrimary>
+				</Col>
+			</StyledRow>
+			<StyledRow className="mt-4">
+				<Col>
+					<Link href="/daftar">
+						<YellowButton>Menjadi Member</YellowButton>
+					</Link>
+				</Col>
+			</StyledRow>
+			<BlueBlob className="position-absolute" src={"/images/blueblob.png"} />
+		</>
+	);
+
 	return (
 		<OuterContainer id="hero">
-			<StyledContainer className="position-relative">
-				<StyledRow>
-					<Col className="align-items-center d-flex justify-content-center">
-						<StyledHeading className="text-white text-center">
-							Belajarlah Setiap Hari Jadilah <span>UNBELIEVEABLE!</span>
-						</StyledHeading>
-					</Col>
-				</StyledRow>
-				<StyledRow className="mt-5">
-					<Col className="align-items-center d-flex justify-content-center">
-						<TextPrimary className="text-center text-white text-capitalize">
-							jadilah lebih baik setiap harinya bersama komunitas kami menuju
-							pribadi yang luar biasa!
-						</TextPrimary>
-					</Col>
-				</StyledRow>
-				<StyledRow className="mt-4">
-					<Col>
-						<Link href="/daftar">
-							<YellowButton>Menjadi Member</YellowButton>
-						</Link>
-					</Col>
-				</StyledRow>
-				<BlueBlob className="position-absolute" src={"/images/blueblob.png"} />
-			</StyledContainer>
+			{scrollHoriz ? (
+				<StyledContainer2>{content}</StyledContainer2>
+			) : (
+				<StyledContainer className="position-relative">
+					{content}
+				</StyledContainer>
+			)}
 		</OuterContainer>
 	);
 }
