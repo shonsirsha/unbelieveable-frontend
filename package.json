@@ -34,7 +34,7 @@
 		"styled-components": "^5.3.0",
 		"sweetalert2": "^11.3.4",
 		"video.js": "^7.17.1",
-		"videojs-hls-quality-selector": "^1.1.4",
+		"videojs-hls-quality-selector": "^2.0.0",
 		"videojs-react-enhanced": "^0.3.1"
 	},
 	"devDependencies": {
